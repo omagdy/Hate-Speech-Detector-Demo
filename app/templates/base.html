@@ -1,0 +1,19 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    Offensive Speech Detector
+{% endblock %}
+
+{% block body %}
+        <div>
+            <h1><p class="text-center">OFFENSIVE SPEECH DETECTOR</p></h1>
+        </div>
+        <br>
+        <font size="5"><p class="text-center">This is a demo of our system submitted to the <a href="http://alt.qcri.org/semeval2019/index.php?id=tasks" target="_blank">SEMEVAL-2019</a> <a href="https://competitions.codalab.org/competitions/20011" target="_blank">Task 6</a> presented at NAACL - HLT 2019. Please find more details in our <a href="https://www.researchgate.net/publication/332057279_nlpUP_at_SemEval-2019_Task_6_A_Deep_Neural_Language_Model_for_Offensive_Language_Detection" target="_blank">paper</a>.</p></font>
+        <br>
+        <br>
+        {% block app_content %}{% endblock %}
+        <br>
+        <br>
+        <font size="5"><p class="text-center"><b>Disclaimer</b>: The contents of this demo are used exclusively for research purposes.</p></font>
+{% endblock %}

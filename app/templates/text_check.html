@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.text.label }}<br>
+            {{ form.text(cols=70, rows=20) }}<br>
+            {% for error in form.text.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.model_language.label }}<br>
+            {{ form.model_language }}<br>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    </div>
+    <div class="col-md-5">
+    <form action="" method="post" novalidate>
+        {{ h_form.hidden_tag() }}
+            {{ h_form.hashtag.label }}<br>
+            {{ h_form.hashtag }}
+            {% for error in h_form.hashtag.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        {{ h_form.submit() }}
+        {% if h_form.ht %}
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        {{ h_form.iframe|safe }}
+        <br>
+        <font size="4">Disclaimer: We do not endorse or are responsible for any of the random tweets that are shown.</font>
+        {% endif %}
+    </form>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+            {% for message in messages %}
+            {% if form.text_color %}
+            <div class="alert alert-danger" role="alert"><font size="6"><center><p class="text-secondary">{{ message }} </p></center></font></div>
+            {% else %}
+            <div class="alert alert-success" role="alert"><font size="6"><center><p class="text-secondary">{{ message }} </p></center></font></div>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+    </div>
+</div>
+
+{% endblock %}
+
