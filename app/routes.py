@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for
-import request
+import urllib.request
 from app import app
 from app.forms import ModelLanguageForm, HashtagForm
 from app.semodel import analyze_eng_text
@@ -12,10 +12,10 @@ import random
 
 
 def get_twitter_url(hashtag):
-	consumer_key= ''
-	consumer_secret= ''
-	access_token= ''
-	access_token_secret= ''
+	consumer_key= 'ifAHFrqn2EB3YccxZaT4Bn2yQ'
+	consumer_secret= 'ef9M7hRrJhP8xfuaQ0T1APn2U7Rr36uFvbfy6B8BRywoqMv3bX'
+	access_token= '1176761735224659968-txABLjzyrJvHlm89GERBoJVPPO1faj'
+	access_token_secret= 'db26odDpMAi4WB3rDdXwcDfJAbjYuot6kNasOcstHF9nX'
 	auth = tw.OAuthHandler(consumer_key, consumer_secret)
 	auth.set_access_token(access_token, access_token_secret)
 	api = tw.API(auth, wait_on_rate_limit=True)
@@ -62,3 +62,5 @@ def text():
     		h_form.iframe = tweet_url
     		return render_template('text_check.html', form=form, h_form=h_form)
     return render_template('text_check.html', form=form, h_form=h_form)
+
+
