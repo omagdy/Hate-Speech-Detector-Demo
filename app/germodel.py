@@ -54,9 +54,9 @@ def analyze_ger_text(text):
     with graph.as_default():
         predictions_final = ger_model.predict(Xt)
     if predictions_final[0][0] > 0.5:
-        f = open("German_Hateful_Tweets.txt", "a")
-        f.write(text+"\n")
-        f.close()
+        # f = open("German_Hateful_Tweets.txt", "a")
+        # f.write(text+"\n")
+        # f.close()
         return "Tweet is offensive", True
     else:
         return "Tweet is not offensive", False

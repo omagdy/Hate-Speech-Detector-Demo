@@ -32,11 +32,7 @@
             {% endfor %}
         {{ h_form.submit() }}
         {% if h_form.ht %}
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        <br><br><br><br><br>
         {{ h_form.iframe|safe }}
         <br>
         <font size="4">Disclaimer: We do not endorse or are responsible for any of the random tweets that are shown.</font>
@@ -44,23 +40,25 @@
     </form>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+        <br><br><br><br><br><br>
             {% for message in messages %}
             {% if form.text_color %}
             <div class="alert alert-danger" role="alert"><font size="6"><center><p class="text-secondary">{{ message }} </p></center></font></div>
             {% else %}
             <div class="alert alert-success" role="alert"><font size="6"><center><p class="text-secondary">{{ message }} </p></center></font></div>
             {% endif %}
+            <br><br>
+            <center>
+                <form action="" method="post" novalidate>
+                    {{ fb_form.hidden_tag() }}
+                    {{ fb_form.submit_a() }}
+                    {{ fb_form.submit_da() }}
+                </form>
+                <font size="4">Your feedback will help us imporve our model.</font>
+            </center>
+
+
             {% endfor %}
-        </ul>
         {% endif %}
         {% endwith %}
     </div>
