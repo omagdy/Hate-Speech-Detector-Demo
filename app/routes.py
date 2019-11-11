@@ -26,10 +26,10 @@ def text():
         return render_template('text_check.html', form=form, h_form=h_form, fb_form=fb_form)
     if fb_form.validate_on_submit():
     	if fb_form.submit_da.data and session['hate_speech']:
-    		label = " NOT OFFENSIVE PER USER"
+    		label = " NOT_OFFENSIVE_PER_USER"
     		save_text(session['text'], label, session['lang'])
     	elif fb_form.submit_da.data and not session['hate_speech']:
-    		label = " OFFENSIVE PER USER"
+    		label = " OFFENSIVE_PER_USER"
     		save_text(session['text'], label, session['lang'])
     if h_form.validate_on_submit():
     	if h_form.hashtag.data:
