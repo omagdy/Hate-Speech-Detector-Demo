@@ -1,4 +1,4 @@
-import request
+#import request
 import  json
 import random
 import tweepy as tw
