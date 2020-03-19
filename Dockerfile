@@ -11,8 +11,9 @@ RUN pip3 install -r requirements.txt
 RUN pip3 install gunicorn
 
 
-COPY app app
-COPY microblog.py config.py boot.sh .env ./
+#COPY app app
+#COPY microblog.py config.py boot.sh .env .flaskenv ./
+COPY . .
 RUN chmod +x boot.sh
 
 ENV FLASK_APP microblog.py
