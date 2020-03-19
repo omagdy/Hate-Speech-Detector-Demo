@@ -5,5 +5,5 @@ This is a demo of the system submitted to the SEMEVAL-2019 Task 6 presented at N
 
 
 Launching Steps:
-  1. pip install requirements.txt
-  2. flask run
+  1. Add .env file containing SECRET_KEY and Twitter API Account parameters
+  2. Run "docker-compose up -d"
