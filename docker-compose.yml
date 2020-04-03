@@ -9,5 +9,3 @@ services:
     #   - .:/microblog
     # environment:
     #   FLASK_ENV: development
-  redis:
-    image: "redis:alpine"

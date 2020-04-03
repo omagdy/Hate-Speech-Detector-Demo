@@ -1,6 +1,9 @@
 FROM python:3.6
 
 WORKDIR /microblog
+
+RUN apt-get install -y cron
+
 COPY requirements.txt requirements.txt
 
 #RUN python3 -m venv venv
