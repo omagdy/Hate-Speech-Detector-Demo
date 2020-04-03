@@ -1,5 +1,5 @@
 PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-* * * * * /microblog/cron_bash.sh 
+0 13 7 * * /microblog/cron_bash.sh 
 # An empty line is required at the end of this file for a valid cron file.
 

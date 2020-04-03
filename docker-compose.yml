@@ -2,10 +2,6 @@ version: '3'
 services:
   web:
     build: .
-    command: gunicorn -b :5000 --access-logfile - --error-logfile - microblog:app
+    command: bash -c "cron && gunicorn -b :5000 --access-logfile - --error-logfile - microblog:app"
     ports:
       - "5000:5000"
-    # volumes:
-    #   - .:/microblog
-    # environment:
-    #   FLASK_ENV: development
