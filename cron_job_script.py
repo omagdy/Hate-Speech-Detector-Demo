@@ -2,7 +2,9 @@ from microblog import app
 import zlib
 import zipfile
 from flask_mail import Mail, Message
+from config import *
 
+mail_receiver = os.environ.get("MAIL_RECEIVER")
 language_files= ["Hateful_Tweets.txt", "German_Hateful_Tweets.txt"]
 
 file_names=[]
@@ -45,7 +47,7 @@ def compress(file_names):
 
 with app.app_context():
     mail = Mail(app)
-    msg = Message("Tweets Database Backup", recipients=["hussei05@ads.uni-passau.de"])
+    msg = Message("Tweets Database Backup", recipients=[mail_receiver])
     msg.body = "This is an automatic message. Kindly find the updated database backup attached."
 
     compress(file_names)
