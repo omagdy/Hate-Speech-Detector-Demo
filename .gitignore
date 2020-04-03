@@ -1,6 +1,7 @@
 *Tweets.txt
 venv/*
 __pycache__/*
-*.pyc
 .env
+*.pyc
+*_ENV.py
 .zip

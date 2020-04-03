@@ -1,7 +1,6 @@
-from flask import render_template, flash, redirect, url_for
-import request
+from flask import render_template, flash, redirect, url_for, session
 from app import app
-from app.forms import ModelLanguageForm, HashtagForm
+from app.forms import ModelLanguageForm, HashtagForm, FeedbackForm
 from app.semodel import analyze_eng_text
 from app.germodel import analyze_ger_text
 import  json
@@ -10,6 +9,7 @@ import tweepy as tw
 import pandas as pd
 import random
 import os
+from app.common_functions import get_twitter_url, save_text
 
 consumer_key= os.environ.get("consumer_key")
 consumer_secret= os.environ.get("consumer_secret")
@@ -17,33 +17,12 @@ access_token= os.environ.get("access_token")
 access_token_secret= os.environ.get("access_token_secret")
 
 
-def get_twitter_url(hashtag):
-	auth = tw.OAuthHandler(consumer_key, consumer_secret)
-	auth.set_access_token(access_token, access_token_secret)
-	api = tw.API(auth, wait_on_rate_limit=True)
-	search_words = "#"+str(hashtag)+ " -filter:retweets"
-	date_since = "2010-01-01"
-	tweets = tw.Cursor(api.search,q=search_words,lang="en",since=date_since).items(50)
-	user_name=[]
-	tweet_id=[]
-	for tweet in tweets:
-	    user_name.append(tweet.user.screen_name)
-	    tweet_id.append(tweet.id)
-	if not user_name:
-		return None
-	random_number = random.randint(0,len(user_name)-1)
-	req = "https://publish.twitter.com/oembed?url=https://twitter.com/"+str(user_name[random_number])+"/status/"+str(tweet_id[random_number])+"&hide_thread=true&hide_media=true"
-	response = urllib.request.urlopen(req)
-	data = json.loads(response.read())
-	return data['html']
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/text', methods=['GET', 'POST'])
 def text():
     form = ModelLanguageForm()
     h_form = HashtagForm()
+    fb_form = FeedbackForm()
     if form.validate_on_submit():
         if form.text.data:
         	if form.model_language.data == 'en':
@@ -52,7 +31,17 @@ def text():
 	        	message, hate_speech = analyze_ger_text(form.text.data)
 	        flash('{}'.format(message))
 	        form.text_color=hate_speech
-        return render_template('text_check.html', form=form, h_form=h_form)
+	        session['text']=form.text.data
+	        session['hate_speech']=hate_speech
+	        session['lang']=form.model_language.data
+        return render_template('text_check.html', form=form, h_form=h_form, fb_form=fb_form)
+    if fb_form.validate_on_submit():
+    	if fb_form.submit_da.data and session['hate_speech']:
+    		label = " NOT_OFFENSIVE_PER_USER"
+    		save_text(session['text'], label, session['lang'])
+    	elif fb_form.submit_da.data and not session['hate_speech']:
+    		label = " OFFENSIVE_PER_USER"
+    		save_text(session['text'], label, session['lang'])
     if h_form.validate_on_submit():
     	if h_form.hashtag.data:
     		tweet_url = get_twitter_url(h_form.hashtag.data)
@@ -62,5 +51,7 @@ def text():
     			return render_template('text_check.html', form=form, h_form=h_form)
     		h_form.ht = h_form.hashtag.data
     		h_form.iframe = tweet_url
-    		return render_template('text_check.html', form=form, h_form=h_form)
-    return render_template('text_check.html', form=form, h_form=h_form)
+    		return render_template('text_check.html', form=form, h_form=h_form, fb_form=fb_form)
+    return render_template('text_check.html', form=form, h_form=h_form, fb_form=fb_form)
+
+

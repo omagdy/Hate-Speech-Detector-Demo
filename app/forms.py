@@ -12,3 +12,7 @@ class HashtagForm(FlaskForm):
     hashtag = StringField(u'Search for a random tweet using a Hashtag', validators=[Length(min=0, max=20)])
     submit = SubmitField('Import a random tweet')
     iframe = 0
+
+class FeedbackForm(FlaskForm):
+    submit_a = SubmitField('I AGREE')
+    submit_da = SubmitField("I DON'T AGREE")

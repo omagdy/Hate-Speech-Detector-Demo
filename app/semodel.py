@@ -54,7 +54,7 @@ def analyze_eng_text(text):
         predictions_final = model.predict(Xt)
     if predictions_final[0][0] > 0.5:
         f = open("Hateful_Tweets.txt", "a")
-        f.write(text+"\n")
+        f.write(text+' NOT_LABELED'+"\n")
         f.close()
         return "Tweet is offensive", True
     else:
